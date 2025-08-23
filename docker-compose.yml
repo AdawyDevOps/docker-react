@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:                              #اسم السرفس = سميها اى اسم
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+     
+    ports:
+    - "3000:3000"                        #portmapping عملنا
+
+    volumes:
+      - .:/app                            # مع الدايركتورى اللى هحط فيه حجات البروجكت بتاعى كلها فيه على الكونتينر اللى عملتها here = . =بين كل الفايلز و الديرز اللى هنا bind mountingلعمل 
+      - /app/node_modules      # bind mounting من ال execlude اكنى عملتله =bind mounting على الباث بتاع الديركتورى دا عشان محطوش معايا ف الاعتبار لما اعمل  book mark عملنا
+    
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ["npm", "run", "test"]
