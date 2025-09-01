@@ -2,16 +2,17 @@ pipeline {
     agent { label 'docker' }
 
     stages {
-
         stage('Checkout code') {
             steps {
+                // هيتأكد إن Git يسحب الكود من المشروع
                 checkout scm
             }
         }
 
         stage('Build Docker image') {
             steps {
-                script {
+                // غيّر المجلد للـ project path
+                dir('/home/adawy/react-project') {
                     sh 'docker build -t adawy123/docker-react -f Dockerfile.dev .'
                 }
             }
@@ -19,20 +20,10 @@ pipeline {
 
         stage('Run tests') {
             steps {
-                script {
-                    env.DOCKER_BUILDKIT = 1
+                dir('/home/adawy/react-project') {
                     sh 'docker run -e CI=true adawy123/docker-react npm run test'
                 }
             }
         }
-
-        stage('Debug Workspace') { 
-            steps {
-                sh 'ls -la'
-            }
-        }
     }
 }
-
-
- 
