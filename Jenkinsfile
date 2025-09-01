@@ -2,28 +2,24 @@ pipeline {
     agent { label 'docker' }
 
     stages {
-
         stage('Checkout code') {
             steps {
-                // نسحب الكود من GitHub
+                // يجيب الكود من Git
                 checkout scm
             }
         }
 
         stage('Build Docker image') {
             steps {
-                // نستخدم نفس مجلد workspace كـ context للـ Docker
-                dir("${env.WORKSPACE}") {
-                    sh 'docker build -t adawy123/docker-react -f Dockerfile.dev .'
-                }
+                // يبني الصورة من نفس الـ workspace
+                sh 'docker build -t adawy123/docker-react -f Dockerfile.dev .'
             }
         }
 
         stage('Run tests') {
             steps {
-                dir("${env.WORKSPACE}") {
-                    sh 'docker run -e CI=true adawy123/docker-react npm run test'
-                }
+                // يشغل حاوية Docker ويشغل الاختبارات
+                sh 'docker run -e CI=true adawy123/docker-react npm run test'
             }
         }
     }
