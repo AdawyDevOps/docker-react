@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          B7bk ya mama enty w baba w nono 
+          3dawy Basha
         </p>
         <a
           className="App-link"
@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          صباحكم لبن حليب 
+          Learn React
         </a>
       </header>
     </div>
